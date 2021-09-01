@@ -25,10 +25,17 @@ const initialState = {
         minutes: 0,
       },
     ],
-    '30-08-2021': [
+    '31-08-2021': [
       {
         name: 'Amlan Roy',
-        hours: 19,
+        hours: 15,
+        minutes: 25,
+      },
+    ],
+    '01-09-2021': [
+      {
+        name: 'Amlan Roy',
+        hours: 15,
         minutes: 25,
       },
     ],
