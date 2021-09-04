@@ -10,12 +10,17 @@ export const setDone = (name, date, hour, min) => {
   };
 };
 
-export const setSettings = (name, petName, dailyDoses, timeBetweenDoses) => {
+export const setSettings = ({
+  name,
+  petName,
+  dailyDoses,
+  timeBetweenDoses,
+}) => {
   return {
     type: SETTINGS_SAVED,
     name: name,
     petName: petName,
-    dailyDoses: dailyDoses,
-    timeBetweenDoses: timeBetweenDoses,
+    dailyDoses: parseInt(dailyDoses),
+    timeBetweenDoses: parseInt(timeBetweenDoses),
   };
 };

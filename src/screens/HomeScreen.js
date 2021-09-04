@@ -21,7 +21,7 @@ const HomeScreen = () => {
   // const { trial } = useSelector((state) => state.appReducer);
 
   const doseAmountStatus = () => {
-    const doses = dosesGiven(state).toString() + '/' + state.dailyDoses;
+    const doses = dosesGiven(state).toString() + '/';
     setDosesText(doses);
   };
 
@@ -34,9 +34,9 @@ const HomeScreen = () => {
     }
   };
 
-  const doneClickHandler = useCallback(() => {
+  const doneClickHandler = () => {
     dispatch(setDone(name, currDate, now.getHours(), now.getMinutes()));
-  }, [dispatch, name, currDate, now.getHours(), now.getMinutes()]);
+  };
 
   useEffect(() => {
     fetchTimeLeftHandler();
@@ -63,7 +63,10 @@ const HomeScreen = () => {
         <Text>{petName}'s next dose of medicine is due in</Text>
         {/* <Text>{trial}</Text> */}
         <Text>{ret}</Text>
-        <Text>Doses Given: {dosesText}</Text>
+        <Text>
+          Doses Given: {dosesText}
+          {state.dailyDoses}
+        </Text>
         <Button title="Done" onPress={doneClickHandler} />
       </View>
     </View>

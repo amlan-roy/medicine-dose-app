@@ -1,28 +1,18 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Text } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, TextInput, Text } from 'react-native';
 
-const Input = (props) => {
-  const { textChangeHandler, key, placeholder, title } = props;
-  const [text, setText] = React.useState('');
-  const onChangeText = (passedText) => {
-    setText(passedText);
-  };
-  useEffect(() => {
-    textChangeHandler(key, text);
-  }, [text]);
-
+const Input = ({ label, placeholder, onChangeText, keyboardType }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>{title}</Text>
+    <View style={styles.container}>
+      <Text>{label}</Text>
       <TextInput
-        blurOnSubmit={true}
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
         placeholder={placeholder}
-        {...props}
+        onChangeText={(text) => onChangeText(text)}
+        selectTextOnFocus={true}
+        style={styles.input}
+        keyboardType={keyboardType}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -35,6 +25,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'column',
+  },
+  input: {
+    width: 250,
+    padding: 5,
+    borderWidth: 2,
   },
 });
 
