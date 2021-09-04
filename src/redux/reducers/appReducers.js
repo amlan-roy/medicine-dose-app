@@ -1,8 +1,6 @@
-import { DOSE_GIVEN } from '../actions/appActions';
-// import { TRIAL } from '../actions/appActions';
+import { DOSE_GIVEN, SETTINGS_SAVED } from '../actions/appActions';
 
 const initialState = {
-  trial: 'initial',
   name: 'Amlan',
   petName: 'Bruno',
   dailyDoses: 6,
@@ -32,10 +30,10 @@ const initialState = {
         minutes: 25,
       },
     ],
-    '01-09-2021': [
+    '02-09-2021': [
       {
         name: 'Amlan Roy',
-        hours: 15,
+        hours: 13,
         minutes: 25,
       },
     ],
@@ -51,13 +49,23 @@ export const appReducer = (state = initialState, action) => {
         history: {
           ...state.history,
           [entryDate]: [
-            ...state.history[entryDate],
-            { name: entryName, time: entryTime },
+            ...(state.history[entryDate] || []),
+            {
+              name: entryName,
+              hours: entryTime.hours,
+              minutes: entryTime.minutes,
+            },
           ],
         },
       };
-    // case TRIAL:
-    //   return { ...state, trial: state.trial.concat('1') };
+    case SETTINGS_SAVED:
+      return {
+        ...state,
+        name: action.name,
+        petName: action.petName,
+        dailyDoses: action.dailyDoses,
+        timeBetweenDoses: action.timeBetweenDoses,
+      };
     default:
       return state;
   }

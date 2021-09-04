@@ -1,19 +1,17 @@
 import {
   setHours,
-  setDate,
   setMinutes,
   differenceInMinutes,
   subDays,
   format,
   add,
+  setDate,
 } from 'date-fns';
 
 const timeLeft = (state) => {
   const { history, timeBetweenDoses } = state;
   const now = add(new Date(), { hours: 5, minutes: 30 }); //current date object
-
   const yestd = subDays(now, 1); // yesterdays date object
-
   const currDate = format(now, 'dd-MM-yyyy'); //current date string
   const prevDate = format(yestd, 'dd-MM-yyyy'); // yesterdays date string
 
@@ -23,12 +21,14 @@ const timeLeft = (state) => {
     var lastDate = new Date(now);
     lastDate = setHours(lastDate, last.hours + 5);
     lastDate = setMinutes(lastDate, last.minutes + 30);
-    let diffInMinutes = differenceInMinutes(now, lastDate);
-    console.log(diffInMinutes, now, lastDate);
-    //difference in minutes between last dose given and current time;
+    lastDate = setDate(lastDate, now.getDate());
+
+    let diffInMinutes = differenceInMinutes(now, lastDate); //difference in minutes between last dose given and current time;
     let requiredDoseDifference = 60 * parseInt(timeBetweenDoses);
     // required time in minutes between each dose
-    let minutesLeft = requiredDoseDifference - diffInMinutes;
+    let minutesLeft = Math.abs(
+      requiredDoseDifference - Math.abs(diffInMinutes),
+    );
     if (diffInMinutes >= requiredDoseDifference) {
       return 'true'; //if its time for dose
     }
@@ -45,8 +45,8 @@ const timeLeft = (state) => {
     var lastDate = new Date(yestd);
     lastDate = setHours(lastDate, last.hours + 5);
     lastDate = setMinutes(lastDate, last.minutes + 30);
+    lastDate = setDate(lastDate, yestd.getDate());
     let diffInMinutes = differenceInMinutes(now, lastDate);
-    console.log(diffInMinutes, now, lastDate);
     //difference in minutes between last dose given and current time;
     let requiredDoseDifference = 60 * parseInt(timeBetweenDoses);
     // required time in minutes between each dose
