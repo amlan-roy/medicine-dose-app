@@ -16,7 +16,7 @@ const HomeScreen = () => {
 
   const SECOND_MS = 1000;
   const now = new Date(); //current date object
-  const currDate = format(add(now, { hours: 5, minutes: 30 }), 'dd-MM-yyyy'); //current date string
+  const currDate = format(now, 'dd-MM-yyyy'); //current date string
 
   // const { trial } = useSelector((state) => state.appReducer);
 

@@ -49,21 +49,24 @@ const SettingsScreen = () => {
         />
         <Input
           label="Pet's Name"
-          placeholder="Pet's Name"
+          placeholder="Bruno"
           keyboardType="default"
           onChangeText={updateValues.bind(this, 'petName')}
+          disabled={true}
         />
         <Input
           label="Daily doses"
-          placeholder="Daily doses"
+          placeholder="6"
           keyboardType="number-pad"
           onChangeText={updateValues.bind(this, 'dailyDoses')}
+          disabled={true}
         />
         <Input
           label="Time between doses"
-          placeholder="Time between doses"
+          placeholder="2"
           keyboardType="number-pad"
           onChangeText={updateValues.bind(this, 'timeBetweenDoses')}
+          disabled={true}
         />
         <Button
           title="Save"

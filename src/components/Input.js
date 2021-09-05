@@ -1,7 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Text } from 'react-native';
 
-const Input = ({ label, placeholder, onChangeText, keyboardType }) => {
+const Input = ({
+  label,
+  placeholder,
+  onChangeText,
+  keyboardType,
+  disabled,
+}) => {
   return (
     <View style={styles.container}>
       <Text>{label}</Text>
@@ -9,8 +15,9 @@ const Input = ({ label, placeholder, onChangeText, keyboardType }) => {
         placeholder={placeholder}
         onChangeText={(text) => onChangeText(text)}
         selectTextOnFocus={true}
-        style={styles.input}
+        style={disabled ? styles.inputDisabled : styles.input}
         keyboardType={keyboardType}
+        editable={!disabled}
       />
     </View>
   );
@@ -30,6 +37,13 @@ const styles = StyleSheet.create({
     width: 250,
     padding: 5,
     borderWidth: 2,
+  },
+  inputDisabled: {
+    width: 250,
+    padding: 5,
+    borderWidth: 2,
+    backgroundColor: 'gray',
+    color: 'white',
   },
 });
 
