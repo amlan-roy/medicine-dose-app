@@ -17,8 +17,8 @@ const SettingsScreen = () => {
   const [values, setValues] = useState({
     name: 'placeholder',
     petName: 'placeholder2',
-    dailyDoses: 0,
-    timeBetweenDoses: 0,
+    dailyDoses: 6,
+    timeBetweenDoses: 2,
   });
 
   const updateValues = (key, text) => {

@@ -6,6 +6,8 @@ import {
   format,
   add,
   setDate,
+  setMonth,
+  setYear,
 } from 'date-fns';
 
 const timeLeft = (state) => {
@@ -22,6 +24,8 @@ const timeLeft = (state) => {
     lastDate = setHours(lastDate, last.hours + 5);
     lastDate = setMinutes(lastDate, last.minutes + 30);
     lastDate = setDate(lastDate, now.getDate());
+    lastDate = setMonth(lastDate, now.getMonth());
+    lastDate = setYear(lastDate, now.getFullYear());
 
     let diffInMinutes = differenceInMinutes(now, lastDate); //difference in minutes between last dose given and current time;
     let requiredDoseDifference = 60 * parseInt(timeBetweenDoses);
@@ -46,6 +50,8 @@ const timeLeft = (state) => {
     lastDate = setHours(lastDate, last.hours + 5);
     lastDate = setMinutes(lastDate, last.minutes + 30);
     lastDate = setDate(lastDate, yestd.getDate());
+    lastDate = setMonth(lastDate, yestd.getMonth());
+    lastDate = setYear(lastDate, yestd.getFullYear());
     let diffInMinutes = differenceInMinutes(now, lastDate);
     //difference in minutes between last dose given and current time;
     let requiredDoseDifference = 60 * parseInt(timeBetweenDoses);

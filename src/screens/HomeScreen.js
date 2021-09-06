@@ -4,18 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import timeLeft from '../functions/timeLeft';
 import dosesGiven from '../functions/dosesGiven';
 import { setDone } from '../redux/actions/appActions';
-import { add, format } from 'date-fns';
+import { add, format, setDate, setMonth, setYear } from 'date-fns';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.appReducer);
+  const state = useSelector((state) => state);
   const { name, petName } = state;
   const [ret, setRet] = useState('');
   const [dosesText, setDosesText] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
   const SECOND_MS = 1000;
-  const now = new Date(); //current date object
+  var now = add(new Date(), { hours: 5, minutes: 30 });
+  now = setDate(now, new Date().getDate());
+  now = setMonth(now, new Date().getMonth());
+  now = setYear(now, new Date().getFullYear());
+  //current date object
   const currDate = format(now, 'dd-MM-yyyy'); //current date string
 
   // const { trial } = useSelector((state) => state.appReducer);
