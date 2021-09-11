@@ -9,14 +9,14 @@ import {
 import { useDispatch } from 'react-redux';
 import { Keyboard } from 'react-native';
 
-import { setSettings } from '../redux/actions/appActions';
+import { setSettings, fetchData } from '../redux/actions/appActions';
 import Input from '../components/Input';
 
 const SettingsScreen = () => {
   const dispatch = useDispatch();
   const [values, setValues] = useState({
     name: 'placeholder',
-    petName: 'placeholder2',
+    petName: 'Bruno',
     dailyDoses: 6,
     timeBetweenDoses: 2,
   });
@@ -25,9 +25,8 @@ const SettingsScreen = () => {
     setValues({ ...values, [key]: text });
   };
   useEffect(() => {
-    console.log(values);
-  }, [values]);
-
+    dispatch(fetchData());
+  }, [dispatch]);
   const onButtonPress = (values) => {
     Keyboard.dismiss();
     dispatch(setSettings(values));
@@ -52,7 +51,7 @@ const SettingsScreen = () => {
           placeholder="Bruno"
           keyboardType="default"
           onChangeText={updateValues.bind(this, 'petName')}
-          disabled={true}
+          disabled={false}
         />
         <Input
           label="Daily doses"

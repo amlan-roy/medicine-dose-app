@@ -1,4 +1,4 @@
-import { DOSE_GIVEN, SETTINGS_SAVED } from '../actions/appActions';
+import { DOSE_GIVEN, SETTINGS_SAVED, FETCH_DATA } from '../actions/appActions';
 
 const initialState = {
   name: 'Amlan',
@@ -65,6 +65,11 @@ export const appReducer = (state = initialState, action) => {
         petName: action.petName,
         dailyDoses: action.dailyDoses,
         timeBetweenDoses: action.timeBetweenDoses,
+      };
+    case FETCH_DATA:
+      return {
+        ...state,
+        history: action.data,
       };
     default:
       return state;

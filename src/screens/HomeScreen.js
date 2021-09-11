@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import timeLeft from '../functions/timeLeft';
 import dosesGiven from '../functions/dosesGiven';
-import { setDone } from '../redux/actions/appActions';
+import { setDone, fetchData } from '../redux/actions/appActions';
 import { add, format, setDate, setMonth, setYear } from 'date-fns';
 
 const HomeScreen = () => {
@@ -39,13 +39,22 @@ const HomeScreen = () => {
   };
 
   const doneClickHandler = () => {
-    dispatch(setDone(name, currDate, now.getHours(), now.getMinutes()));
+    const newDate = new Date();
+    dispatch(setDone(name, currDate, newDate.getHours(), newDate.getMinutes()));
   };
 
+  const checkHandler = () => {
+    dispatch(() => {
+      fetchData();
+    });
+  };
   useEffect(() => {
     fetchTimeLeftHandler();
     doseAmountStatus();
-  }, []);
+    dispatch(() => {
+      fetchData();
+    });
+  }, [dispatch]);
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds((prev) => prev + 1);
@@ -72,6 +81,7 @@ const HomeScreen = () => {
           {state.dailyDoses}
         </Text>
         <Button title="Done" onPress={doneClickHandler} />
+        <Button title="Check" onPress={checkHandler} />
       </View>
     </View>
   );

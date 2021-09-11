@@ -1,12 +1,73 @@
-export const DOSE_GIVEN = 'Dose given';
-export const SETTINGS_SAVED = 'Settings saved';
+export const DOSE_GIVEN = 'DOSE_GIVEN';
+export const SETTINGS_SAVED = 'SETTINGS_SAVED';
+export const FETCH_DATA = 'FETCH_DATA';
 
 export const setDone = (name, date, hour, min) => {
-  return {
-    type: DOSE_GIVEN,
-    entryDate: date,
-    entryTime: { hours: hour, minutes: min },
-    entryName: name,
+  return async (dispatch) => {
+    const response = await fetch(
+      'https://bruno-app-db-default-rtdb.firebaseio.com/history/' +
+        date +
+        '.json',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          hours: hour,
+          minutes: min,
+        }),
+      },
+    );
+
+    dispatch({
+      type: DOSE_GIVEN,
+      entryDate: date,
+      entryTime: { hours: hour, minutes: min },
+      entryName: name,
+    });
+  }; // return {
+  //   type: DOSE_GIVEN,
+  //   entryDate: date,
+  //   entryTime: { hours: hour, minutes: min },
+  //   entryName: name,
+  // };
+};
+
+export const fetchData = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        'https://bruno-app-db-default-rtdb.firebaseio.com/history.json',
+      );
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      const resData = await response.json();
+      var loadedData = {};
+
+      for (const key in resData) {
+        var histDat = [];
+        for (const key2 in resData[key]) {
+          histDat.push({
+            hours: parseInt(resData[key][key2].hours),
+            minutes: resData[key][key2].minutes,
+            name: resData[key][key2].name,
+          });
+          loadedData = {
+            ...loadedData,
+            [key]: histDat,
+          };
+        }
+      }
+      dispatch({
+        type: FETCH_DATA,
+        data: loadedData,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
