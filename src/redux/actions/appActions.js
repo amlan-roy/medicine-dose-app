@@ -1,25 +1,21 @@
 export const DOSE_GIVEN = 'DOSE_GIVEN';
 export const SETTINGS_SAVED = 'SETTINGS_SAVED';
 export const FETCH_DATA = 'FETCH_DATA';
+import { link } from '../../config';
 
 export const setDone = (name, date, hour, min) => {
   return async (dispatch) => {
-    const response = await fetch(
-      'https://bruno-app-db-default-rtdb.firebaseio.com/history/' +
-        date +
-        '.json',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          hours: hour,
-          minutes: min,
-        }),
+    const response = await fetch(link + 'history/' + date + '.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+      body: JSON.stringify({
+        name: name,
+        hours: hour,
+        minutes: min,
+      }),
+    });
 
     dispatch({
       type: DOSE_GIVEN,
